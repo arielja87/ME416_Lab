@@ -2,10 +2,8 @@ import sys
 import time
 import RPi.GPIO as GPIO
 
-mode=GPIO.getmode()
-
-GPIO.cleanup()
-GPIO.setmode(GPIO.BOARD) # Set the pin numbering scheme to board numbers (as opposed to Broadcom number, see the pinout)
+# Set the pin numbering scheme to board numbers (as opposed to Broadcom number, see the pinout)
+GPIO.setmode(GPIO.BOARD)
 
 # Assign variable names to the pins so you don't have to control them by number
 L_forward_pin = 31
@@ -94,5 +92,5 @@ print("Arc Left")
 setspeed(int(.3*max_speed), int(.5*max_speed))
 forward(1)
 
-# 
+# This basically resets any used pins to input mode to avoid bad stuff like shorts
 GPIO.cleanup()
