@@ -55,7 +55,7 @@ def parse_msg_and_publish(imu_msg):
 
         if (t1 == 0):
             t1 = t2
-			return
+		    return
         else:
             # duration between readings
             dt = t2 - t1
