@@ -5,7 +5,6 @@
 '''
 
 import rospy
-from lab_module import combine
 from numpy import mean
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Pose2D
@@ -55,7 +54,7 @@ def parse_msg_and_publish(imu_msg):
 
         if (t1 == 0):
             t1 = t2
-		    return
+	    return
         else:
             # duration between readings
             dt = t2 - t1

@@ -12,9 +12,7 @@ from geometry_msgs.msg import Pose2D, Twist
 #from pid_param.cfg import PID_Config
 
 gains_linear = [-1,1,1]
-gains_angular = [-1./1000., 0, 0]
-gains_angular[1] = 0
-gains_angular[2] = -1./5000.
+gains_angular = [-1./1410., 0, -1./3440.]
 
 t1 = 0
 
@@ -68,8 +66,9 @@ def control(ctrl_msg):
             t1 = t2
             #--------- stub here ? -----------------#
             pid_out = pid_angular.control(e, dt)
-            print(pid_out)
+#            print(pid_out)
             msg = Twist()
+            msg.linear.x = .22
             msg.angular.z = pid_out
             pub.publish(msg)
 
