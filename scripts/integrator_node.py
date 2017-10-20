@@ -55,6 +55,7 @@ def parse_msg_and_publish(imu_msg):
 
         if (t1 == 0]):
             t1 = t2
+			return
         else:
             # duration between readings
             dt = t2 - t1
@@ -76,7 +77,7 @@ def parse_msg_and_publish(imu_msg):
         vel_msg.theta = imu[2] - offsets[2]
         pub_v.publish(vel_msg)
 
-def integrator_node():
+def main():
     rospy.init_node('integrator_node')
     rospy.loginfo("Started: " + rospy.get_name())
     rospy.loginfo("Subscribing to: /rtimulib_node/imu")
@@ -87,6 +88,6 @@ def integrator_node():
 
 if __name__ == '__main__':
     try:
-        integrator_node()
+        main()
     except rospy.ROSInterruptException:
         pass
