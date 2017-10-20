@@ -7,7 +7,7 @@ project(me416_lab)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS dynamic_reconfigure)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -84,10 +84,10 @@ find_package(catkin REQUIRED)
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
+generate_dynamic_reconfigure_options(
+   cfg/pid_param.cfg
 #   cfg/DynReconf2.cfg
-# )
+ )
 
 ###################################
 ## catkin specific configuration ##
@@ -115,6 +115,8 @@ include_directories(
 # include
 # ${catkin_INCLUDE_DIRS}
 )
+
+add_dependencies(example_node ${PROJECT_NAME}_gencfg)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -193,3 +195,13 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+#add dynamic reconfigure api
+#find_package(catkin REQUIRED dynamic_reconfigure)
+#generate_dynamic_reconfigure_options(
+#  cfg/pid_param.cfg
+  #...
+#)
+
+# make sure configure headers are built before any node using them
+#add_dependencies(pid_node ${PROJECT_NAME}_gencfg)
