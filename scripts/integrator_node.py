@@ -53,7 +53,7 @@ def parse_msg_and_publish(imu_msg):
         # time of reading
         t2 = imu_msg.header.stamp.secs + imu_msg.header.stamp.nsecs*10**(-9)
 
-        if (t1 == 0]):
+        if (t1 == 0):
             t1 = t2
 			return
         else:
