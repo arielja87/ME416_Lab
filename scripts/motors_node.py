@@ -36,9 +36,9 @@ GPIO.setup(L_speed_pin, GPIO.OUT)
 GPIO.setup(R_speed_pin, GPIO.OUT)
 
 # By creating pwm objects, we can easily control their duty cycles. There's only 2 pwm channels on the Pi, these are them.
-# Sets up a pwm signal with a frequency of 25 Hz. The frequency is analogous to the resolution of the pwm signal.
+# Sets up a pwm signal with a frequency of 200 Hz. The frequency is analogous to the resolution of the pwm signal.
 # The wheels, chassis, and gear box result in a relatively high inertial load on the motors, which allows us to set a
-# relatively low frequency for the pwm signal. If the motor is jerky, try increasing this by 5 Hz.
+# relatively low frequency for the pwm signal. If the motor is jerky, try increasing this by 5 or 10 Hz.
 L_pwm = GPIO.PWM(L_speed_pin, 200)
 R_pwm = GPIO.PWM(R_speed_pin, 200)
 
@@ -78,7 +78,7 @@ def translate_twist(twist_msg):
         R_speed = max(-1, min( angular_velocity + linear_velocity, 1))
         setspeed(L_speed, R_speed)
 
-def motors_node():
+def main():
     rospy.init_node('motors_node')
     rospy.Subscriber('motor_vel', Twist, translate_twist)
     rospy.on_shutdown(GPIO.cleanup)
@@ -89,4 +89,4 @@ def motors_node():
     rospy.spin()
 
 if __name__ == '__main__':
-    motors_node()
+    main()

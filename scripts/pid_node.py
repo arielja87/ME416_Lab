@@ -11,7 +11,6 @@ from dynamic_reconfigure.server import Server
 from geometry_msgs.msg import Pose2D, Twist
 #from pid_param.cfg import PID_Config
 
-gains_linear = [-1,1,1]
 gains_angular = [-1./1410., 0, -1./3440.]
 
 t1 = 0
