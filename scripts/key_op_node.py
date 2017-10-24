@@ -12,7 +12,7 @@ class key_msg(object):
         self.linear = lin
         self.angular = ang
 
-step = .3
+step = .5
 
 def key_op():
     pub = rospy.Publisher('motor_vel', Twist, queue_size=10)

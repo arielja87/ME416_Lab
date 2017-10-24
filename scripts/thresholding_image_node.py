@@ -20,14 +20,16 @@ bridge = CvBridge()
 hsv_lower = np.array([34, 80, 100])
 hsv_upper = np.array([80, 255, 255])
 seg_time_buff = []
+last_center = [0,0]
 
 def segment(img_msg):
-    global seg_time_buff
+    global seg_time_buff, last_center
     t1 = time.time()
     np_img = np.fromstring(img_msg.data, dtype=np.uint8)
     new_img = cv2.cvtColor(cv2.imdecode(np_img, 1), cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(new_img, hsv_lower, hsv_upper)
     new_img = np.stack((mask, mask, mask), axis=2)
+
     with warnings.catch_warnings():
         warnings.filterwarnings('error')
         try:
@@ -35,7 +37,11 @@ def segment(img_msg):
             center = np.mean(np.nonzero(mask.transpose()), axis=1).astype('uint32')
             cv2.line(new_img, (center[0], 0), (center[0], mask.shape[0]), (0,255,0), 3)
         except Warning:
-            center = [-1, -1]
+            if (last_center[0] > (mask.shape[1]/2)):
+                center = [mask.shape[1] + 1, mask.shape[0]/2]
+            else:
+                center = [-1, mask.shape[0]/2]
+
     t2 = time.time()
     if (seg_time_buff is not None and len(seg_time_buff) < 100):
         seg_time_buff.append(t2-t1)
@@ -46,6 +52,7 @@ def segment(img_msg):
         img_pub.publish(bridge.cv2_to_imgmsg(new_img, "bgr8"))
     except CvBridgeError as e:
         print(e)
+    last_center = center
     msg = Pose2D()
     msg.x = float(center[0])
     msg.y = float(center[1])

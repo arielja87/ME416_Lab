@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<launch>
+  <include file="$(find raspicam_node)/launch/tracking.launch"/>
+    <param name="/raspicam_node/saturation" value="100"/>
+    <param name="/raspicam_node/ISO" value="800"/>
+  <node pkg="image_view" name="raw_image_view" type="image_view" output="screen">
+    <param name="image_transport" value="compressed"/>
+    <remap from="image" to="/raspicam_node/image"/>
+  </node>
+  <node pkg="me416_lab" name="thresholding_image_node" type="thresholding_image_node.py"/>
+  <node pkg="image_view" name="segmented_image_view" type="image_view" output="screen">
+    <remap from="image" to="/segmented_image"/>
+  </node>
+  <node pkg="me416_lab" name="motors_node" type="motors_node.py"/>
+  <node pkg="me416_lab" name="key_op_node" type="key_op_node.py" output="screen"/>
+  <node pkg="me416_lab" name="pid_node" type="pid_node.py"/>
+</launch>
+
+
