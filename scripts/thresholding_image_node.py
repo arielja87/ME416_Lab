@@ -37,10 +37,11 @@ def segment(img_msg):
             center = np.mean(np.nonzero(mask.transpose()), axis=1).astype('uint32')
             cv2.line(new_img, (center[0], 0), (center[0], mask.shape[0]), (0,255,0), 3)
         except Warning:
-            if (last_center[0] > (mask.shape[1]/2)):
-                center = [mask.shape[1] + 1, mask.shape[0]/2]
+            if (last_center[0] > float(mask.shape[1])/2.):
+                center = [mask.shape[1] + 1, float(mask.shape[0])/2.]
             else:
-                center = [-1, mask.shape[0]/2]
+                center = [-1, float(mask.shape[0])/2.]
+	print(center)
 
     t2 = time.time()
     if (seg_time_buff is not None and len(seg_time_buff) < 100):
@@ -52,11 +53,12 @@ def segment(img_msg):
         img_pub.publish(bridge.cv2_to_imgmsg(new_img, "bgr8"))
     except CvBridgeError as e:
         print(e)
-    last_center = center
+
     msg = Pose2D()
     msg.x = float(center[0])
     msg.y = float(center[1])
     center_pub.publish(msg)
+	last_center = center
 
 def main():
     rospy.init_node('segmented_image_node')
@@ -72,5 +74,3 @@ if __name__ == '__main__':
         rospy.spin()
     except KeyboardInterrupt:
         print("Shutting down")
-
-
