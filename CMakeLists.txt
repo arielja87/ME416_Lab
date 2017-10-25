@@ -116,7 +116,7 @@ include_directories(
 # ${catkin_INCLUDE_DIRS}
 )
 
-add_dependencies(example_node ${PROJECT_NAME}_gencfg)
+add_dependencies(pid_node ${PROJECT_NAME}_gencfg)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}

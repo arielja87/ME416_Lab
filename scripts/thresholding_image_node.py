@@ -38,10 +38,9 @@ def segment(img_msg):
             cv2.line(new_img, (center[0], 0), (center[0], mask.shape[0]), (0,255,0), 3)
         except Warning:
             if (last_center[0] > float(mask.shape[1])/2.):
-                center = [mask.shape[1] + 1, float(mask.shape[0])/2.]
+                center = [float(mask.shape[1] + 1), float(mask.shape[0])/2.]
             else:
-                center = [-1, float(mask.shape[0])/2.]
-	print(center)
+                center = [-1., float(mask.shape[0])/2.]
 
     t2 = time.time()
     if (seg_time_buff is not None and len(seg_time_buff) < 100):
@@ -58,7 +57,7 @@ def segment(img_msg):
     msg.x = float(center[0])
     msg.y = float(center[1])
     center_pub.publish(msg)
-	last_center = center
+    last_center = center
 
 def main():
     rospy.init_node('segmented_image_node')

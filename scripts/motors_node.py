@@ -25,7 +25,7 @@ speed_offset = .945
 # Assign some useful parameters, in this case, max_duty_cycle is the duty cycle of the pwm signal (as a percentage) that will
 # control the speed of the motors. It is good practice to keep the duty cycle at or below 90%, so we should set speeds
 # to be some fraction of this number (cast as an integer, see below).
-max_duty_cycle = 92
+max_duty_cycle = 90
 
 # Pin setup. In this test case, we're only performing open loop control, so all the motor pins (our actuators) are set to output.
 GPIO.setup(L_forward_pin, GPIO.OUT)
@@ -36,11 +36,11 @@ GPIO.setup(L_speed_pin, GPIO.OUT)
 GPIO.setup(R_speed_pin, GPIO.OUT)
 
 # By creating pwm objects, we can easily control their duty cycles. There's only 2 pwm channels on the Pi, these are them.
-# Sets up a pwm signal with a frequency of 200 Hz. The frequency is analogous to the resolution of the pwm signal.
+# Sets up a pwm signal with a frequency of 100 Hz. The frequency is analogous to the resolution of the pwm signal.
 # The wheels, chassis, and gear box result in a relatively high inertial load on the motors, which allows us to set a
 # relatively low frequency for the pwm signal. If the motor is jerky, try increasing this by 5 or 10 Hz.
-L_pwm = GPIO.PWM(L_speed_pin, 200)
-R_pwm = GPIO.PWM(R_speed_pin, 200)
+L_pwm = GPIO.PWM(L_speed_pin, 100)
+R_pwm = GPIO.PWM(R_speed_pin, 100)
 
 # Some useful functions for robot velocity.
 

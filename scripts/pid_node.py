@@ -11,7 +11,7 @@ from dynamic_reconfigure.server import Server
 from geometry_msgs.msg import Pose2D, Twist
 #from pid_param.cfg import PID_Config
 
-gains_angular = [-1./1410., 0, -1./3440.]
+gains_angular = [-1./1050., 0, -1./5050.]
 
 t1 = 0
 
@@ -80,7 +80,7 @@ def main():
 
 if __name__ == '__main__':
     pid_angular = pid_controller(gains_angular)
-    pid_linear = pid_controller(gains_linear)
+#    pid_linear = pid_controller(gains_linear)
     e = reference_error(205.5)
     main()
     try:
