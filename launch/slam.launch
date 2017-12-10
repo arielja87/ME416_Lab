@@ -3,15 +3,15 @@
 <launch>
 
   <include file="$(find raspicam_node)/launch/tracking.launch"/>
-    <param name="/raspicam_node/saturation" value="100"/>
+    <param name="/raspicam_node/saturation" value="50"/>
+    <param name="/raspicam_node/brightness" value="55"/>
+    <param name="/raspicam_node/contrast" value="0"/>
     <param name="/raspicam_node/ISO" value="800"/>
 
-  <include file="$(find aruco_detect)/launch/aruco_detect.launch"/>
+  <node pkg="tf" type="static_transform_publisher" name="base_link" args="0 0 0 0 0 0 base_link raspicam 100" />
 
-  <node pkg="image_view" name="tag_image_view" type="image_view" output="screen">
-    <param name="image_transport" value="raw"/>
-    <remap from="image" to="/fiducial_images"/>
-  </node>
+  <include file="$(find aruco_detect)/launch/aruco_detect.launch"/>
+  <include file="$(find fiducial_slam)/launch/fiducial_slam.launch"/>
 
 </launch>
 

@@ -37,10 +37,14 @@ def segment(img_msg):
             center = np.mean(np.nonzero(mask.transpose()), axis=1).astype('uint32')
             cv2.line(new_img, (center[0], 0), (center[0], mask.shape[0]), (0,255,0), 3)
         except Warning:
-            if (last_center[0] > float(mask.shape[1])/2.):
-                center = [float(mask.shape[1] + 1), float(mask.shape[0])/2.]
+            rospy.loginfo(sum(sum(mask)))
+            if(sum(sum(mask)) > 100):
+                if(last_center[0] > float(mask.shape[1])/2.):
+                    center = [float(mask.shape[1]), float(mask.shape[0])/2.]
+                else:
+                    center = [0., float(mask.shape[0])/2.]
             else:
-                center = [-1., float(mask.shape[0])/2.]
+                return
 
     t2 = time.time()
     if (seg_time_buff is not None and len(seg_time_buff) < 100):

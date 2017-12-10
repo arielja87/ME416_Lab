@@ -11,7 +11,7 @@ from dynamic_reconfigure.server import Server
 from geometry_msgs.msg import Pose2D, Twist
 #from pid_param.cfg import PID_Config
 
-gains_angular = [-1./1050., 0, -1./5050.]
+gains_angular = [-1./700., 0, -1./5050.]
 
 t1 = 0
 
@@ -67,7 +67,7 @@ def control(ctrl_msg):
             pid_out = pid_angular.control(e, dt)
 #            print(pid_out)
             msg = Twist()
-            msg.linear.x = .22
+            msg.linear.x = .35
             msg.angular.z = pid_out
             pub.publish(msg)
 
