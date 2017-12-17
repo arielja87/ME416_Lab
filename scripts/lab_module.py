@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 ## This is a library of helpful classes and functions for the ME416 Lab.
-from math import floor, log10
 
 class _Getch:
     """Gets a single character from standard input.  Does not echo to the
