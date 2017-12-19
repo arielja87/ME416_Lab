@@ -9,9 +9,10 @@ import numpy as np
 #from lab_module import combine
 from dynamic_reconfigure.server import Server
 from geometry_msgs.msg import Pose2D, Twist
-#from pid_param.cfg import PID_Config
 
+#-----------STUB?-------------#
 gains_angular = [-1./700., 0, -1./5050.]
+#-----------------------------#
 
 t1 = 0
 
